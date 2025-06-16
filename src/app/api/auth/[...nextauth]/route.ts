@@ -1,24 +1,20 @@
+// src/app/api/auth/[...nextauth]/route.ts
 import NextAuth from "next-auth";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { db } from "@/lib/db";
+import { PrismaClient } from "@prisma/client";
 
-export const authOptions = {
-  adapter: PrismaAdapter(db),
-  providers: [],
-  session: { strategy: "jwt" },
-  callbacks: {
-    async jwt({ token, user }) {
-      if (user) token.role = user.role;
-      return token;
-    },
-    async session({ session, token }) {
-      if (session.user) {
-        session.user.role = token.role as string;
-      }
-      return session;
-    },
-  },
+const prisma = new PrismaClient();
+
+// احفظ authOptions كمجرد ثُغَير محلي:
+const authOptions = {
+  adapter: PrismaAdapter(prisma),
+  providers: [
+    // هنا ضيف موفّري الدخول لديك
+  ],
 };
 
+// أنشئ المعالج:
 const handler = NextAuth(authOptions);
+
+// صَدّر فقط دوال HTTP:
 export { handler as GET, handler as POST };

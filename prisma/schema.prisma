@@ -8,11 +8,11 @@ datasource db {
 }
 
 model User {
-  id       Int      @id @default(autoincrement())
-  email    String   @unique
-  password String?
-  role     Role     @default(CUSTOMER)
-  orders   Order[]
+  id        Int             @id @default(autoincrement())
+  email     String          @unique
+  password  String?
+  role      Role            @default(CUSTOMER)
+  orders    Order[]         // علاقة واحد-إلى-متعدد مع Order
 }
 
 enum Role {
@@ -21,17 +21,26 @@ enum Role {
 }
 
 model Product {
-  id          Int     @id @default(autoincrement())
+  id          Int               @id @default(autoincrement())
   name        String
   description String?
   price       Float
-  orders      Order[]
+  items       OrderProduct[]    // الجانب العكسي لعلاقة صريحة مع OrderProduct
 }
 
 model Order {
-  id        Int       @id @default(autoincrement())
-  user      User      @relation(fields: [userId], references: [id])
-  userId    Int
-  products  Product[] @relation(references: [id])
-  createdAt DateTime  @default(now())
+  id          Int               @id @default(autoincrement())
+  user        User              @relation(fields: [userId], references: [id])
+  userId      Int
+  items       OrderProduct[]    // علاقة صريحة مع OrderProduct
+  createdAt   DateTime          @default(now())
+}
+
+model OrderProduct {
+  order       Order   @relation(fields: [orderId], references: [id])
+  orderId     Int
+  product     Product @relation(fields: [productId], references: [id])
+  productId   Int
+  quantity    Int
+  @@id([orderId, productId])    // مفتاح مركب لضمان التفرد
 }
