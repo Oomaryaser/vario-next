@@ -14,7 +14,11 @@ export default async function Storefront() {
           <div key={p.id} className="border rounded p-4 space-y-2">
             <h2 className="font-medium">{p.name}</h2>
             <p className="text-sm text-gray-600">${p.price.toFixed(2)}</p>
-            <AddToCartButton product={{ id: p.id, name: p.name, price: p.price }} />
+            <AddToCartButton
+              productId={p.id}
+              name={p.name}
+              price={p.price}
+            />
           </div>
         ))}
       </div>

@@ -25,15 +25,17 @@ export default async function AdminDashboard() {
       <table className="min-w-full text-sm">
         <thead className="bg-gray-100">
           <tr>
-            <th className="p-2 text-left">User</th>
+            <th className="p-2 text-left">Order ID</th>
+            <th className="p-2 text-left">User Email</th>
             <th className="p-2 text-left">Total</th>
             <th className="p-2 text-left">Status</th>
-            <th className="p-2 text-left">Created</th>
+            <th className="p-2 text-left">Date</th>
           </tr>
         </thead>
         <tbody>
           {orders.map((o) => (
             <tr key={o.id} className="border-b">
+              <td className="p-2">{o.id}</td>
               <td className="p-2">{o.user.email}</td>
               <td className="p-2">${o.total.toFixed(2)}</td>
               <td className="p-2">{o.status}</td>

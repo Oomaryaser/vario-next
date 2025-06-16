@@ -2,7 +2,9 @@ import Link from 'next/link'
 import { prisma } from '@/lib/prisma'
 
 export default async function ProductsAdminPage() {
-  const products = await prisma.product.findMany({ orderBy: { createdAt: 'desc' } })
+  const products = await prisma.product.findMany({
+    orderBy: { createdAt: 'desc' },
+  })
 
   return (
     <div className="space-y-4">
@@ -10,15 +12,17 @@ export default async function ProductsAdminPage() {
       <table className="min-w-full text-sm">
         <thead className="bg-gray-100">
           <tr>
+            <th className="p-2 text-left">Product ID</th>
             <th className="p-2 text-left">Name</th>
             <th className="p-2 text-left">Price</th>
-            <th className="p-2 text-left">Created</th>
+            <th className="p-2 text-left">Created At</th>
             <th className="p-2" />
           </tr>
         </thead>
         <tbody>
           {products.map((p) => (
             <tr key={p.id} className="border-b">
+              <td className="p-2">{p.id}</td>
               <td className="p-2">{p.name}</td>
               <td className="p-2">${p.price.toFixed(2)}</td>
               <td className="p-2">{p.createdAt.toDateString()}</td>
