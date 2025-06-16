@@ -1,7 +1,7 @@
-import { db } from '@/lib/db'
+import { prisma } from '@/lib/prisma'
 
 export default async function AdminDashboard() {
-  const orders = await db.order.findMany({
+  const orders = await prisma.order.findMany({
     include: { user: true },
     orderBy: { createdAt: 'desc' },
   })

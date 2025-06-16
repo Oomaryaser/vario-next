@@ -1,10 +1,10 @@
-import { db } from '@/lib/db'
+import { prisma } from '@/lib/prisma'
 import AddToCartButton from '@/components/AddToCartButton'
 
 export const revalidate = 0
 
 export default async function Storefront() {
-  const products = await db.product.findMany({ orderBy: { createdAt: 'desc' } })
+  const products = await prisma.product.findMany({ orderBy: { createdAt: 'desc' } })
 
   return (
     <div className="grid gap-6 p-6 md:p-10">

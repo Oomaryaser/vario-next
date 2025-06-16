@@ -1,8 +1,8 @@
 import Link from 'next/link'
-import { db } from '@/lib/db'
+import { prisma } from '@/lib/prisma'
 
 export default async function ProductsAdminPage() {
-  const products = await db.product.findMany({ orderBy: { createdAt: 'desc' } })
+  const products = await prisma.product.findMany({ orderBy: { createdAt: 'desc' } })
 
   return (
     <div className="space-y-4">

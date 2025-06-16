@@ -10,4 +10,8 @@ declare module 'next-auth' {
       role: 'ADMIN' | 'CUSTOMER';
     } & DefaultSession['user'];
   }
+
+  interface JWT {
+    role?: 'ADMIN' | 'CUSTOMER'
+  }
 }

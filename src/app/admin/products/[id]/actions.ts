@@ -1,6 +1,6 @@
 'use server'
 
-import { db } from '@/lib/db'
+import { prisma } from '@/lib/prisma'
 
 export async function updateProduct(data: {
   id: number
@@ -8,7 +8,7 @@ export async function updateProduct(data: {
   description: string
   price: number
 }) {
-  await db.product.update({
+  await prisma.product.update({
     where: { id: data.id },
     data: {
       name: data.name,
